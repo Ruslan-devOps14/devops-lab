@@ -1,4 +1,4 @@
-name: Docker Build
+name: Build Docker Image
 
 on:
   push:
@@ -6,12 +6,12 @@ on:
       - main
 
 jobs:
-  build:
+  docker-build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Получить код
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Собрать Docker Image
+      - name: Build Docker image
         run: docker build -t devops-lab .
