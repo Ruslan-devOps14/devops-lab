@@ -31,3 +31,20 @@ jobs:
       - name: Push image
         run: |
           docker push ghcr.io/ruslan-devops14/devops-lab:latest
+  deploy:
+    needs: docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Ubuntu Server
+        uses: appleboy/ssh-action@v1.2.2
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd /home/ruslan/devops-lab/website
+            docker compose pull
+            docker compose up -d
+            docker image prune -f
