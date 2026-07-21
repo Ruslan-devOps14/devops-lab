@@ -1,0 +1,7 @@
+services:
+  website:
+    image: ghcr.io/ruslan-devops14/devops-lab:latest
+    container_name: devops-lab
+    ports:
+      - "8080:80"
+    restart: unless-stopped

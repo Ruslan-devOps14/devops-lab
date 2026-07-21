@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   docker:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
@@ -48,3 +48,13 @@ jobs:
             docker compose pull
             docker compose up -d
             docker image prune -f
+  test-runner:
+    needs: docker
+    runs-on: self-hosted
+
+    steps:
+      - name: Show server
+        run: |
+          hostname
+          whoami
+          pwd
